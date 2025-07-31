@@ -1,0 +1,4 @@
+<svg width="200" height="50" xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="35" font-family="Arial" font-size="30" fill="#4CAF50">Scapegoat</text>
+  <path d="M180 10 L190 25 L180 40" stroke="#4CAF50" stroke-width="2" fill="none"/>
+</svg> 

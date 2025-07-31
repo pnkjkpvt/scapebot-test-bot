@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Scapegoat Chatbot Service</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: #f4f7f6;
+            color: #333;
+        }
+        /* Flash Banner Styles */
+        #flash-banner {
+            background-color: #4CAF50; /* Green background */
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 1001;
+            font-weight: 500;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0084ff;
+        }
+        .navbar .menu a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #0084ff, #00c6ff);
+            color: #fff;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        .hero .btn {
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            background-color: #fff;
+            color: #0084ff;
+            transition: background-color 0.3s ease;
+        }
+        .hero .btn:hover {
+            background-color: #e0e7ee;
+        }
+        .features {
+            padding: 60px 20px;
+            background-color: #f4f7f6;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .feature {
+            flex: 1 1 300px;
+            margin: 20px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .feature h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: #0084ff;
+        }
+        .feature p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .cta {
+            padding: 60px 20px;
+            text-align: center;
+            background: #ffffff;
+        }
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .cta a {
+            padding: 15px 30px;
+            font-size: 1rem;
+            background-color: #0084ff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+        }
+        .cta a:hover {
+            background-color: #006bbd;
+        }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #ffffff;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Flash Banner -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div id="flash-banner">
+          {% for category, message in messages %}
+              {{ message }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <img src="/static/logo.svg" alt="Scapegoat" class="logo">
+        <div class="menu">
+            {% if username %}
+                <a href="{{ url_for('chat_interface') }}">Chat Now</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div>
+            {% if username %}
+              <h1>Welcome back, {{ username }}!</h1>
+              <p>Ready to get your questions answered with a twist? Let’s chat!</p>
+              <a class="btn" href="{{ url_for('chat_interface') }}">Go to Chat</a>
+            {% else %}
+              <h1>Welcome to Scapegoat Chatbot</h1>
+              <p>Experience this simple chatbot service that replies with a funk but also surprises you with attractive offers.</p>
+              <a class="btn" href="{{ url_for('login') }}">Get Started</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features">
+        <div class="feature">
+            <h3>Smart Responses</h3>
+            <p>Our chatbot leverages smart algorithms to provide witty responses.</p>
+        </div>
+        <div class="feature">
+            <h3>Secure Interaction</h3>
+            <p>Experience industry-standard security measures for all your interactions.</p>
+        </div>
+        <div class="feature">
+            <h3>Exclusive Offers</h3>
+            <p>Unlock exclusive discounts and offers as you engage with our chatbot.</p>
+        </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="cta">
+        <h2>Ready to Chat?</h2>
+        {% if username %}
+            <a href="{{ url_for('chat_interface') }}">Start Chatting</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login to Chat</a>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; {{ year or "2025" }} Scapegoat Chatbot. All rights reserved.
+    </div>
+
+    <!-- JavaScript to Hide Flash Banner After 3 Seconds -->
+    <script>
+        setTimeout(function(){
+            var banner = document.getElementById('flash-banner');
+            if(banner) {
+                banner.style.display = 'none';
+            }
+        }, 3000); // Hide after 3000 milliseconds (3 seconds)
+    </script>
+</body>
+</html>
