@@ -3,7 +3,7 @@
 A super simple chatbot. Here is all you need to know:
 
 - This chatbot serves as a test target and is for development purposes only.
-- Basic API key based authentication mechanism is implemented for the chatbot.
+- Basic API key based authentication mechanism is implemented for the chatbot, the value of which can be set by setting `API_TOKEN` environment variable
 
 ## Installation
 
